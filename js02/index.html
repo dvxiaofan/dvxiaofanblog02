@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-mac-osx.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="var、let 及 const 区别我们先来了解提升（hoisting）这个概念。 12console.log(a) &#x2F;&#x2F; undefinedvar a &#x3D; 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6部分知识点总结">
+<meta property="og:url" content="http://yoursite.com/js02/index.html">
+<meta property="og:site_name" content="张艳坤的前端小站">
+<meta property="og:description" content="var、let 及 const 区别我们先来了解提升（hoisting）这个概念。 12console.log(a) &#x2F;&#x2F; undefinedvar a &#x3D; 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://imgs.webxiaofan.com/15467609246417.jpg">
+<meta property="og:image" content="http://imgs.webxiaofan.com/15467612528823.jpg">
+<meta property="og:image" content="http://imgs.webxiaofan.com/15467613259047.jpg">
+<meta property="article:published_time" content="2020-05-12T07:25:02.000Z">
+<meta property="article:modified_time" content="2020-05-12T07:37:21.037Z">
+<meta property="article:author" content="张艳坤">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://imgs.webxiaofan.com/15467609246417.jpg">
+
+<link rel="canonical" href="http://yoursite.com/js02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ES6部分知识点总结 | 张艳坤的前端小站</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">张艳坤的前端小站</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">砥砺前行</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/js02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="张艳坤">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="张艳坤的前端小站">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ES6部分知识点总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-05-12 15:25:02 / 修改时间：15:37:21" itemprop="dateCreated datePublished" datetime="2020-05-12T15:25:02+08:00">2020-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/js02/" class="post-meta-item leancloud_visitors" data-flag-title="ES6部分知识点总结" title="热度">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-fire"></i>
+              </span>
+              <span class="post-meta-item-text">热度：</span>
+              <span class="leancloud-visitors-count"></span>
+              <span>℃</span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/js02/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/js02/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="var、let-及-const-区别"><a href="#var、let-及-const-区别" class="headerlink" title="var、let 及 const 区别"></a>var、let 及 const 区别</h2><p>我们先来了解提升（<code>hoisting</code>）这个概念。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(a) &#x2F;&#x2F; undefined</span><br><span class="line">var a &#x3D; 1</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+
+<p>从上述代码中我们可以发现，虽然变量还没有被声明，但是我们却可以使用这个未被声明的变量，这种情况就叫做提升，并且提升的是声明。</p>
+<p>对于这种情况，我们可以把代码这样来看</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a</span><br><span class="line">console.log(a) &#x2F;&#x2F; undefined</span><br><span class="line">a &#x3D; 1</span><br></pre></td></tr></table></figure>
+<p>接下来我们再来看一个例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 10</span><br><span class="line">var a[README](media&#x2F;README.md)</span><br><span class="line">console.log(a)</span><br></pre></td></tr></table></figure>
+<p>对于这个例子，如果你认为打印的值为 <code>undefined</code> 那么就错了，答案应该是 10，对于这种情况，我们这样来看代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var a</span><br><span class="line">var a</span><br><span class="line">a &#x3D; 10</span><br><span class="line">console.log(a)</span><br></pre></td></tr></table></figure>
+<p>到这里为止，我们已经了解了 <code>var</code> 声明的变量会发生提升的情况，其实不仅变量会提升函数也会被提升。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">console.log(a) &#x2F;&#x2F; ƒ a() &#123;&#125;</span><br><span class="line">function a() &#123;&#125;</span><br><span class="line">var a &#x3D; 1</span><br></pre></td></tr></table></figure>
+<p>对于上述代码，打印结果会是 <code>ƒ a() {}</code>，即使变量声明在函数之后，这也说明了函数会被提升，并且优先于变量提升。</p>
+<p>说完了这些，想必也知道 <code>var</code> 存在的问题了，使用 <code>var</code> 声明的变量会被提升到作用域的顶部，接下来我们再来看 <code>let</code> 和 <code>const</code> 。</p>
+<p>我们先来看一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; 1</span><br><span class="line">let b &#x3D; 1</span><br><span class="line">const c &#x3D; 1</span><br><span class="line">console.log(window.b) &#x2F;&#x2F; undefined</span><br><span class="line">console.log(window. c) &#x2F;&#x2F; undefined</span><br><span class="line"></span><br><span class="line">function test()&#123;</span><br><span class="line">  console.log(a)</span><br><span class="line">  let a</span><br><span class="line">&#125;</span><br><span class="line">test()</span><br></pre></td></tr></table></figure>
+<p>首先在全局作用域下使用 <code>let</code> 和 <code>const</code> 声明变量，变量并不会被挂载到 <code>window</code> 上，这一点就和 <code>var</code> 声明有了区别。</p>
+<p>再者当我们在声明 <code>a</code> 之前如果使用了 <code>a</code>，就会出现报错的情况</p>
+<p><img src="http://imgs.webxiaofan.com/15467609246417.jpg" alt=""></p>
+<p>你可能会认为这里也出现了提升的情况，但是因为某些原因导致不能访问。</p>
+<p>首先报错的原因是因为存在暂时性死区，我们不能在声明前就使用变量，这也是 <code>let</code> 和 <code>const</code> 优于 <code>var</code> 的一点。然后这里你认为的提升和 <code>var</code> 的提升是有区别的，虽然变量在编译的环节中被告知在这块作用域中可以访问，但是访问是受限制的。</p>
+<p>那么到这里，想必我们也都明白 <code>var</code>、<code>let</code> 及 <code>const</code> 区别了，不知道你是否会有这么一个疑问，为什么要存在提升这个事情呢，其实提升存在的根本原因就是为了解决函数间互相调用的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function test1() &#123;</span><br><span class="line">    test2()</span><br><span class="line">&#125;</span><br><span class="line">function test2() &#123;</span><br><span class="line">    test1()</span><br><span class="line">&#125;</span><br><span class="line">test1()</span><br></pre></td></tr></table></figure>
+<p>假如不存在提升这个情况，那么就实现不了上述的代码，因为不可能存在 <code>test1</code> 在 <code>test2</code> 前面然后 <code>test2</code> 又在 <code>test1</code> 前面。</p>
+<p>那么最后我们总结下这小节的内容：</p>
+<ul>
+<li>函数提升优先于变量提升，函数提升会把整个函数挪到作用域顶部，变量提升只会把声明挪到作用域顶部</li>
+<li><code>var</code> 存在提升，我们能在声明之前使用。<code>let</code>、<code>const</code> 因为暂时性死区的原因，不能在声明前使用</li>
+<li><code>var</code> 在全局作用域下声明变量会导致变量挂载在 <code>window</code> 上，其他两者不会</li>
+<li><code>let</code> 和 <code>const</code> 作用基本一致，但是后者声明的变量不能再次赋值</li>
+</ul>
+<h2 id="原型继承和-Class-继承"><a href="#原型继承和-Class-继承" class="headerlink" title="原型继承和 Class 继承"></a>原型继承和 Class 继承</h2><p>首先先来看下 <code>class</code>，其实在 <code>JS</code> 中并不存在类，<code>class</code> 只是语法糖，本质还是函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;&#125;</span><br><span class="line">Person instanceof Function &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<p>在之前我们了解了原型的知识点，这里我们将会使用分别使用原型和 <code>class</code> 的方式来实现继承。</p>
+<h3 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h3><p>组合继承是最常用的继承方式，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function Parent(value) &#123;</span><br><span class="line">  this.val &#x3D; value</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getValue &#x3D; function() &#123;</span><br><span class="line">  console.log(this.val)</span><br><span class="line">&#125;</span><br><span class="line">function Child(value) &#123;</span><br><span class="line">  Parent.call(this, value)</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype &#x3D; new Parent()</span><br><span class="line"></span><br><span class="line">const child &#x3D; new Child(1)</span><br><span class="line"></span><br><span class="line">child.getValue() &#x2F;&#x2F; 1</span><br><span class="line">child instanceof Parent &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<p>以上继承的方式核心是在子类的构造函数中通过 <code>Parent.call(this)</code> 继承父类的属性，然后改变子类的原型为 <code>new Parent()</code> 来继承父类的函数。</p>
+<p>这种继承方式优点在于构造函数可以传参，不会与父类引用属性共享，可以复用父类的函数，但是也存在一个缺点就是在继承父类函数的时候调用了父类构造函数，导致子类的原型上多了不需要的父类属性，存在内存上的浪费。</p>
+<p><img src="http://imgs.webxiaofan.com/15467612528823.jpg" alt=""></p>
+<h3 id="寄生组合继承"><a href="#寄生组合继承" class="headerlink" title="寄生组合继承"></a>寄生组合继承</h3><p>这种继承方式对组合继承进行了优化，组合继承缺点在于继承父类函数时调用了构造函数，我们只需要优化掉这点就行了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">function Parent(value) &#123;</span><br><span class="line">  this.val &#x3D; value</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.getValue &#x3D; function() &#123;</span><br><span class="line">  console.log(this.val)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Child(value) &#123;</span><br><span class="line">  Parent.call(this, value)</span><br><span class="line">&#125;</span><br><span class="line">Child.prototype &#x3D; Object.create(Parent.prototype, &#123;</span><br><span class="line">  constructor: &#123;</span><br><span class="line">    value: Child,</span><br><span class="line">    enumerable: false,</span><br><span class="line">    writable: true,</span><br><span class="line">    configurable: true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">const child &#x3D; new Child(1)</span><br><span class="line"></span><br><span class="line">child.getValue() &#x2F;&#x2F; 1</span><br><span class="line">child instanceof Parent &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<p>以上继承实现的核心就是将父类的原型赋值给了子类，并且将构造函数设置为子类，这样既解决了无用的父类属性问题，还能正确的找到子类的构造函数。</p>
+<p><img src="http://imgs.webxiaofan.com/15467613259047.jpg" alt=""></p>
+<h3 id="Class-继承"><a href="#Class-继承" class="headerlink" title="Class 继承"></a>Class 继承</h3><p>以上两种继承方式都是通过原型去解决的，在 <code>ES6</code> 中，我们可以使用 <code>class</code> 去实现继承，并且实现起来很简单</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">class Parent &#123;</span><br><span class="line">  constructor(value) &#123;</span><br><span class="line">    this.val &#x3D; value</span><br><span class="line">  &#125;</span><br><span class="line">  getValue() &#123;</span><br><span class="line">    console.log(this.val)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">class Child extends Parent &#123;</span><br><span class="line">  constructor(value) &#123;</span><br><span class="line">    super(value)</span><br><span class="line">    this.val &#x3D; value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let child &#x3D; new Child(1)</span><br><span class="line">child.getValue() &#x2F;&#x2F; 1</span><br><span class="line">child instanceof Parent &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<p><code>class</code> 实现继承的核心在于使用 <code>extends</code> 表明继承自哪个父类，并且在子类构造函数中必须调用 <code>super</code>，因为这段代码可以看成 <code>Parent.call(this, value)</code>。</p>
+<p>当然了，之前也说了在 <code>JS</code> 中并不存在类，<code>class</code> 的本质就是函数。</p>
+<h2 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h2><p>模块化可以给我们带来以下好处</p>
+<ul>
+<li>解决命名冲突</li>
+<li>提供复用性</li>
+<li>提高代码可维护性</li>
+</ul>
+<h3 id="立即执行函数"><a href="#立即执行函数" class="headerlink" title="立即执行函数"></a>立即执行函数</h3><p>在早期，使用立即执行函数实现模块化是常见的手段，通过函数作用域解决了命名冲突、污染全局作用域的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function(globalVariable)&#123;</span><br><span class="line">   globalVariable.test &#x3D; function() &#123;&#125;</span><br><span class="line">   &#x2F;&#x2F; ... 声明各种变量、函数都不会污染全局作用域</span><br><span class="line">&#125;)(globalVariable)</span><br></pre></td></tr></table></figure>
+<h3 id="AMD-和-CMD"><a href="#AMD-和-CMD" class="headerlink" title="AMD 和 CMD"></a>AMD 和 CMD</h3><p>鉴于目前这两种实现方式已经很少见到，所以不再对具体特性细聊，只需要了解这两者是如何使用的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; AMD</span><br><span class="line">define([&#39;.&#x2F;a&#39;, &#39;.&#x2F;b&#39;], function(a, b) &#123;</span><br><span class="line">  &#x2F;&#x2F; 加载模块完毕可以使用</span><br><span class="line">  a.do()</span><br><span class="line">  b.do()</span><br><span class="line">&#125;)</span><br><span class="line">&#x2F;&#x2F; CMD</span><br><span class="line">define(function(require, exports, module) &#123;</span><br><span class="line">  &#x2F;&#x2F; 加载模块</span><br><span class="line">  &#x2F;&#x2F; 可以把 require 写在函数体的任意地方实现延迟加载</span><br><span class="line">  var a &#x3D; require(&#39;.&#x2F;a&#39;)</span><br><span class="line">  a.doSomething()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h3><p><code>CommonJS</code> 最早是 <code>Node</code> 在使用，目前也仍然广泛使用，比如在 <code>Webpack</code> 中你就能见到它，当然目前在 <code>Node</code> 中的模块管理已经和 <code>CommonJS</code> 有一些区别了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; a.js</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    a: 1</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; or </span><br><span class="line">exports.a &#x3D; 1</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; b.js</span><br><span class="line">var module &#x3D; require(&#39;.&#x2F;a.js&#39;)</span><br><span class="line">module.a &#x2F;&#x2F; -&gt; log 1</span><br></pre></td></tr></table></figure>
+<p>因为 <code>CommonJS</code> 还是会使用到的，所以这里会对一些疑难点进行解析</p>
+<p>先说 <code>require</code> 吧</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var module &#x3D; require(&#39;.&#x2F;a.js&#39;)</span><br><span class="line">module.a </span><br><span class="line">&#x2F;&#x2F; 这里其实就是包装了一层立即执行函数，这样就不会污染全局变量了，</span><br><span class="line">&#x2F;&#x2F; 重要的是 module 这里，module 是 Node 独有的一个变量</span><br><span class="line">module.exports &#x3D; &#123;</span><br><span class="line">    a: 1</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; module 基本实现</span><br><span class="line">var module &#x3D; &#123;</span><br><span class="line">  id: &#39;xxxx&#39;, &#x2F;&#x2F; 我总得知道怎么去找到他吧</span><br><span class="line">  exports: &#123;&#125; &#x2F;&#x2F; exports 就是个空对象</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 这个是为什么 exports 和 module.exports 用法相似的原因</span><br><span class="line">var exports &#x3D; module.exports </span><br><span class="line">var load &#x3D; function (module) &#123;</span><br><span class="line">    &#x2F;&#x2F; 导出的东西</span><br><span class="line">    var a &#x3D; 1</span><br><span class="line">    module.exports &#x3D; a</span><br><span class="line">    return module.exports</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F; 然后当我 require 的时候去找到独特的</span><br><span class="line">&#x2F;&#x2F; id，然后将要使用的东西用立即执行函数包装下，over</span><br></pre></td></tr></table></figure>
+<p>另外虽然 <code>exports</code> 和 <code>module.exports</code> 用法相似，但是不能对 <code>exports</code> 直接赋值。因为 <code>var exports = module.exports</code> 这句代码表明了 <code>exports</code> 和 <code>module.exports</code> 享有相同地址，通过改变对象的属性值会对两者都起效，但是如果直接对 <code>exports</code> 赋值就会导致两者不再指向同一个内存地址，修改并不会对 <code>module.exports</code> 起效。</p>
+<h3 id="ES-Module"><a href="#ES-Module" class="headerlink" title="ES Module"></a>ES Module</h3><p><code>ES Module</code> 是原生实现的模块化方案，与 <code>CommonJS</code> 有以下几个区别</p>
+<ul>
+<li><code>CommonJS</code> 支持动态导入，也就是 <code>require(${path}/xx.js)</code>，后者目前不支持，但是已有提案</li>
+<li><code>CommonJS</code> 是同步导入，因为用于服务端，文件都在本地，同步导入即使卡住主线程影响也不大。而后者是异步导入，因为用于浏览器，需要下载文件，如果也采用同步导入会对渲染有很大影响</li>
+<li><code>CommonJS</code> 在导出时都是值拷贝，就算导出的值变了，导入的值也不会改变，所以如果想更新值，必须重新导入一次。但是 <code>ES Module</code> 采用实时绑定的方式，导入导出的值都指向同一个内存地址，所以导入值会跟随导出值变化</li>
+<li><code>ES Module</code> 会编译成 <code>require/exports</code> 来执行的</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 引入模块 API</span><br><span class="line">import XXX from &#39;.&#x2F;a.js&#39;</span><br><span class="line">import &#123; XXX &#125; from &#39;.&#x2F;a.js&#39;</span><br><span class="line">&#x2F;&#x2F; 导出模块 API</span><br><span class="line">export function a() &#123;&#125;</span><br><span class="line">export default function() &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h2><p>如果你平时有关注 <code>Vue</code> 的进展的话，可能已经知道了在 <code>Vue3.0</code> 中将会通过 <code>Proxy</code> 来替换原本的 <code>Object.defineProperty</code> 来实现数据响应式。 <code>Proxy</code> 是 <code>ES6</code> 中新增的功能，它可以用来自定义对象中的操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let p &#x3D; new Proxy(target, handler)</span><br></pre></td></tr></table></figure>
+<p><code>target</code> 代表需要添加代理的对象，<code>handler</code> 用来自定义对象中的操作，比如可以用来自定义 <code>set</code> 或者 <code>get</code> 函数。</p>
+<p>接下来我们通过 <code>Proxy</code> 来实现一个数据响应式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">let onWatch &#x3D; (obj, setBind, getLogger) &#x3D;&gt; &#123;</span><br><span class="line">  let handler &#x3D; &#123;</span><br><span class="line">    get(target, property, receiver) &#123;</span><br><span class="line">      getLogger(target, property)</span><br><span class="line">      return Reflect.get(target, property, receiver)</span><br><span class="line">    &#125;,</span><br><span class="line">    set(target, property, value, receiver) &#123;</span><br><span class="line">      setBind(value, property)</span><br><span class="line">      return Reflect.set(target, property, value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return new Proxy(obj, handler)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">let obj &#x3D; &#123; a: 1 &#125;</span><br><span class="line">let p &#x3D; onWatch(</span><br><span class="line">  obj,</span><br><span class="line">  (v, property) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#96;监听到属性$&#123;property&#125;改变为$&#123;v&#125;&#96;)</span><br><span class="line">  &#125;,</span><br><span class="line">  (target, property) &#x3D;&gt; &#123;</span><br><span class="line">    console.log(&#96;&#39;$&#123;property&#125;&#39; &#x3D; $&#123;target[property]&#125;&#96;)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line">p.a &#x3D; 2 &#x2F;&#x2F; 监听到属性a改变2</span><br><span class="line">p.a &#x2F;&#x2F; &#39;a&#39; &#x3D; 2</span><br></pre></td></tr></table></figure>
+<p>在上述代码中，我们通过自定义 <code>set</code> 和 <code>get</code> 函数的方式，在原本的逻辑中插入了我们的函数逻辑，实现了在对对象任何属性进行读写时发出通知。</p>
+<p>当然这是简单版的响应式实现，如果需要实现一个 <code>Vue</code> 中的响应式，需要我们在 <code>get</code> 中收集依赖，在 <code>set</code> 派发更新，之所以 <code>Vue3.0</code> 要使用 <code>Proxy</code> 替换原本的 <code>API</code> 原因在于 <code>Proxy</code> 无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好，并且原本的实现有一些数据更新不能监听到，但是 <code>Proxy</code> 可以完美监听到任何方式的数据改变，唯一缺陷可能就是浏览器的兼容性不好了。</p>
+<h2 id="map-filter-reduce"><a href="#map-filter-reduce" class="headerlink" title="map, filter, reduce"></a>map, filter, reduce</h2><p><code>map</code> 作用是生成一个新数组，遍历原数组，将每个元素拿出来做一些变换然后放入到新的数组中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[1, 2, 3].map(v &#x3D;&gt; v + 1) &#x2F;&#x2F; -&gt; [2, 3, 4]</span><br></pre></td></tr></table></figure>
+<p>另外 <code>map</code> 的回调函数接受三个参数，分别是 当前索引元素，索引，原数组</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[&#39;1&#39;,&#39;2&#39;,&#39;3&#39;].map(parseInt)</span><br><span class="line">第一轮遍历 parseInt(&#39;1&#39;, 0) -&gt; 1</span><br><span class="line">第二轮遍历 parseInt(&#39;2&#39;, 1) -&gt; NaN</span><br><span class="line">第三轮遍历 parseInt(&#39;3&#39;, 2) -&gt; NaN</span><br></pre></td></tr></table></figure>
+<p><code>filter</code> 的作用也是生成一个新数组，在遍历数组的时候将返回值为 <code>true</code> 的元素放入新数组，我们可以利用这个函数删除一些不需要的元素</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let array &#x3D; [1, 2, 4, 6]</span><br><span class="line">let newArray &#x3D; array.filter(item &#x3D;&gt; item !&#x3D;&#x3D; 6)</span><br><span class="line">console.log(newArray) &#x2F;&#x2F; [1, 2, 4]</span><br></pre></td></tr></table></figure>
+<p>和 <code>map</code> 一样，<code>filter</code> 的回调函数也接受三个参数，用处也相同。</p>
+<p>最后我们来学习 <code>reduce</code> 这块的内容，同时也是最难理解的一块内容。<code>reduce</code> 可以将数组中的元素通过回调函数最终转换为一个值。</p>
+<p>如果我们想实现一个功能将函数里的元素全部相加得到一个值，可能会这样写代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [1, 2, 3]</span><br><span class="line">let total &#x3D; 0</span><br><span class="line">for (let i &#x3D; 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  total +&#x3D; arr[i]</span><br><span class="line">&#125;</span><br><span class="line">console.log(total) &#x2F;&#x2F;6</span><br></pre></td></tr></table></figure>
+<p>但是如果我们使用 <code>reduce</code> 的话就可以将遍历部分的代码优化为一行代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [1, 2, 3]</span><br><span class="line">const sum &#x3D; arr.reduce((acc, current) &#x3D;&gt; acc + current, 0)</span><br><span class="line">console.log(sum)</span><br></pre></td></tr></table></figure>
+<p>对于 <code>reduce</code> 来说，它接受两个参数，分别是回调函数和初始值，接下来我们来分解上述代码中 <code>reduce</code> 的过程</p>
+<ul>
+<li>首先初始值为 <code>0</code>，该值会在执行第一次回调函数时作为第一个参数传入</li>
+<li>回调函数接受四个参数，分别为累计值、当前元素、当前索引、原数组，后三者想必大家都可以明白作用，这里着重分析第一个参数</li>
+<li>在一次执行回调函数时，当前值和初始值相加得出结果 <code>1</code>，该结果会在第二次执行回调函数时当做第一个参数传入</li>
+<li>所以在第二次执行回调函数时，相加的值就分别是 <code>1</code> 和 <code>2</code>，以此类推，循环结束后得到结果 <code>6</code></li>
+</ul>
+<p>想必通过以上的解析大家应该明白 <code>reduce</code> 是如何通过回调函数将所有元素最终转换为一个值的，当然 <code>reduce</code> 还可以实现很多功能，接下来我们就通过 <code>reduce</code> 来实现 <code>map</code> 函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const arr &#x3D; [1, 2, 3]</span><br><span class="line">const mapArray &#x3D; arr.map(value &#x3D;&gt; value * 2)</span><br><span class="line">const reduceArray &#x3D; arr.reduce((acc, current) &#x3D;&gt; &#123;</span><br><span class="line">  acc.push(current * 2)</span><br><span class="line">  return acc</span><br><span class="line">&#125;, [])</span><br><span class="line">console.log(mapArray, reduceArray) &#x2F;&#x2F; [2, 4, 6]</span><br></pre></td></tr></table></figure>
+<p>如果你对这个实现还有困惑的话，可以根据上一步的解析步骤来分析过程。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/js04/" rel="prev" title="手写Promise">
+      <i class="fa fa-chevron-left"></i> 手写Promise
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/js05/" rel="next" title="Event Loop">
+      Event Loop <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#var、let-及-const-区别"><span class="nav-number">1.</span> <span class="nav-text">var、let 及 const 区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型继承和-Class-继承"><span class="nav-number">2.</span> <span class="nav-text">原型继承和 Class 继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组合继承"><span class="nav-number">2.1.</span> <span class="nav-text">组合继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寄生组合继承"><span class="nav-number">2.2.</span> <span class="nav-text">寄生组合继承</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-继承"><span class="nav-number">2.3.</span> <span class="nav-text">Class 继承</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化"><span class="nav-number">3.</span> <span class="nav-text">模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#立即执行函数"><span class="nav-number">3.1.</span> <span class="nav-text">立即执行函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMD-和-CMD"><span class="nav-number">3.2.</span> <span class="nav-text">AMD 和 CMD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CommonJS"><span class="nav-number">3.3.</span> <span class="nav-text">CommonJS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES-Module"><span class="nav-number">3.4.</span> <span class="nav-text">ES Module</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Proxy"><span class="nav-number">4.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#map-filter-reduce"><span class="nav-number">5.</span> <span class="nav-text">map, filter, reduce</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">张艳坤</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/dvxiaofan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;dvxiaofan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张艳坤</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var canonicalURL, curProtocol;
+      //Get the <link> tag
+      var x=document.getElementsByTagName("link");
+		//Find the last canonical URL
+		if(x.length > 0){
+			for (i=0;i<x.length;i++){
+				if(x[i].rel.toLowerCase() == 'canonical' && x[i].href){
+					canonicalURL=x[i].href;
+				}
+			}
+		}
+    //Get protocol
+	    if (!canonicalURL){
+	    	curProtocol = window.location.protocol.split(':')[0];
+	    }
+	    else{
+	    	curProtocol = canonicalURL.split(':')[0];
+	    }
+      //Get current URL if the canonical URL does not exist
+	    if (!canonicalURL) canonicalURL = window.location.href;
+	    //Assign script content. Replace current URL with the canonical URL
+      !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=canonicalURL,t=document.referrer;if(!e.test(r)){var n=(String(curProtocol).toLowerCase() === 'https')?"https://sp0.baidu.com/9_Q4simg2RQJ8t7jm9iCKT-xh_/s.gif":"//api.share.baidu.com/s.gif";t?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var i=new Image;i.src=n}}(window);})();
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'H14rYftY7JXkum3506IKSXcd-gzGzoHsz',
+      appKey     : 'B4DMX63KscgO25Cfm2YP30mB',
+      placeholder: "six six six",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh_CN' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
