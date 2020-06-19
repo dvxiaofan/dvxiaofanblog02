@@ -22,20 +22,20 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="语言按语法分类 非形式语言 中文 英文 …">
+  <meta name="description" content="近日碰到一个需求， 就是在一个弹出的列表里需要默认勾选已经绑定过的数据并且不可取消，所以才有了这次记录  自定义rowSelection属性查阅官方文档， 发现有这个途径， 那就开始自定义吧">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编程语言通识">
-<meta property="og:url" content="http://yoursite.com/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86/index.html">
+<meta property="og:title" content="antdesign table 设置默认选中行且不可编辑">
+<meta property="og:url" content="http://yoursite.com/antdesign-table-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E9%80%89%E4%B8%AD%E8%A1%8C%E4%B8%94%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91/index.html">
 <meta property="og:site_name" content="张艳坤的前端小站">
-<meta property="og:description" content="语言按语法分类 非形式语言 中文 英文 …">
+<meta property="og:description" content="近日碰到一个需求， 就是在一个弹出的列表里需要默认勾选已经绑定过的数据并且不可取消，所以才有了这次记录  自定义rowSelection属性查阅官方文档， 发现有这个途径， 那就开始自定义吧">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-05-10T06:40:59.000Z">
-<meta property="article:modified_time" content="2020-05-12T04:40:59.000Z">
+<meta property="article:published_time" content="2020-06-19T09:26:17.000Z">
+<meta property="article:modified_time" content="2020-06-19T09:48:12.148Z">
 <meta property="article:author" content="张艳坤">
-<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="tools">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86/">
+<link rel="canonical" href="http://yoursite.com/antdesign-table-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E9%80%89%E4%B8%AD%E8%A1%8C%E4%B8%94%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91/">
 
 
 <script id="page-configurations">
@@ -48,7 +48,7 @@
   };
 </script>
 
-  <title>编程语言通识 | 张艳坤的前端小站</title>
+  <title>antdesign table 设置默认选中行且不可编辑 | 张艳坤的前端小站</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-78511254-3"></script>
     <script>
@@ -178,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/antdesign-table-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E9%80%89%E4%B8%AD%E8%A1%8C%E4%B8%94%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -191,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          编程语言通识
+          antdesign table 设置默认选中行且不可编辑
         </h1>
 
         <div class="post-meta">
@@ -200,28 +200,22 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-05-10 14:40:59" itemprop="dateCreated datePublished" datetime="2020-05-10T14:40:59+08:00">2020-05-10</time>
+              <time title="创建时间：2020-06-19 17:26:17 / 修改时间：17:48:12" itemprop="dateCreated datePublished" datetime="2020-06-19T17:26:17+08:00">2020-06-19</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-05-12 12:40:59" itemprop="dateModified" datetime="2020-05-12T12:40:59+08:00">2020-05-12</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                  <a href="/categories/tools/" itemprop="url" rel="index"><span itemprop="name">tools</span></a>
                 </span>
             </span>
 
           
-            <span id="/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86/" class="post-meta-item leancloud_visitors" data-flag-title="编程语言通识" title="热度">
+            <span id="/antdesign-table-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E9%80%89%E4%B8%AD%E8%A1%8C%E4%B8%94%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91/" class="post-meta-item leancloud_visitors" data-flag-title="antdesign table 设置默认选中行且不可编辑" title="热度">
               <span class="post-meta-item-icon">
                 <i class="fa fa-fire"></i>
               </span>
@@ -237,8 +231,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86/" itemprop="commentCount"></span>
+    <a title="valine" href="/antdesign-table-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E9%80%89%E4%B8%AD%E8%A1%8C%E4%B8%94%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/antdesign-table-%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E9%80%89%E4%B8%AD%E8%A1%8C%E4%B8%94%E4%B8%8D%E5%8F%AF%E7%BC%96%E8%BE%91/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -253,113 +247,59 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="语言按语法分类"><a href="#语言按语法分类" class="headerlink" title="语言按语法分类"></a>语言按语法分类</h2><ul>
-<li>非形式语言<ul>
-<li>中文</li>
-<li>英文</li>
-<li>…</li>
-</ul>
-</li>
-</ul>
+        <blockquote>
+<p>近日碰到一个需求， 就是在一个弹出的列表里需要默认勾选已经绑定过的数据并且不可取消，所以才有了这次记录</p>
+</blockquote>
+<h2 id="自定义rowSelection属性"><a href="#自定义rowSelection属性" class="headerlink" title="自定义rowSelection属性"></a>自定义rowSelection属性</h2><p>查阅官方文档， 发现有这个途径， 那就开始自定义吧</p>
 <a id="more"></a>
 
-<ul>
-<li>形式语言(乔姆斯基谱系)<ul>
-<li>0型 - 无限制文法</li>
-<li>1型 - 上下文相关文法</li>
-<li>2型 - 上下文无关文法</li>
-<li>3型 - 正则文法</li>
-</ul>
-</li>
-</ul>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="巴科斯范式"><a href="#巴科斯范式" class="headerlink" title="巴科斯范式"></a>巴科斯范式</h2><p>(Backus Normal Form, 简称BNF)</p>
-<p>是一种用于表示上下文无关文法的语言, 上下文无关文法描述了一类形式语言. </p>
-<p>尽管巴科斯范式也能表示一部分自然语言的语法, 它还是更广泛的用于程序设计语言, 指令集, 通信协议的语法表示中</p>
-<h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>BNF 规定是推到规则(产生式)的集合, 写为: </p>
-<p>&lt;符号&gt;::=&lt;使用符号的表达式&gt;</p>
-<p>这里的&lt;符号&gt;是非终结符, 而表达式由一个符号序列, 或勇表示选择的竖杠 ‘|’分隔的多个符号序列构成, 每个符号序列整体都是左端的符号的一种可能的替代. 从未在末端出现的符号叫做终结符</p>
-<h3 id="产生式-BNF-巴科斯范式"><a href="#产生式-BNF-巴科斯范式" class="headerlink" title="产生式(BNF - 巴科斯范式)"></a>产生式(BNF - 巴科斯范式)</h3><ul>
-<li>用尖括号括起来的名称来表示语法结构名</li>
-<li>语法结构分成基础结构和需要用其他语法结构定义的复用结构<ul>
-<li>基础结构称终结符</li>
-<li>复合结构称非终结符</li>
-</ul>
-</li>
-<li>引号和中间的字符表示终结符</li>
-<li>可以有括号</li>
-<li>*表示重复多次</li>
-<li>| 表示或</li>
-<li>表示至少一次</li>
-<li>四则运算:<ul>
-<li>1  + 2 * 3</li>
-</ul>
-</li>
-<li>终结符: <ul>
-<li>Number</li>
-<li>+-*/</li>
-</ul>
-</li>
-<li>非终结符<ul>
-<li>MulitiplicativeExpression</li>
-<li>AddtiveExpression</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="built_in">Number</span>&gt; = <span class="string">"0"</span> | <span class="string">"1"</span> | <span class="string">"2"</span> | ..... | <span class="string">"9"</span></span><br><span class="line"></span><br><span class="line">&lt;DecimalNumber&gt; = <span class="string">"0"</span> | ((<span class="string">"1"</span> | <span class="string">"2"</span> | ..... | <span class="string">"9"</span>) &lt;<span class="built_in">Number</span>&gt;* )</span><br><span class="line"></span><br><span class="line">&lt;PrimaryExpression&gt; = <span class="xml"><span class="tag">&lt;<span class="name">DecimalNumber</span>&gt;</span> |</span></span><br><span class="line">    "(" &lt;LogicalExpression&gt; ")"</span><br><span class="line"></span><br><span class="line">&lt;MultiplicativeExpression&gt; = &lt;PrimaryExpression&gt; | </span><br><span class="line">    &lt;MultiplicativeExpression&gt; "*" &lt;PrimaryExpression&gt;| </span><br><span class="line">    &lt;MultiplicativeExpression&gt; "/" &lt;PrimaryExpression&gt;</span><br><span class="line"></span><br><span class="line">&lt;AdditiveExpression&gt; = &lt;MultiplicativeExpression&gt; | </span><br><span class="line">    &lt;AdditiveExpression&gt; "+" &lt;MultiplicativeExpression&gt;| </span><br><span class="line">    &lt;AdditiveExpression&gt; "-" &lt;MultiplicativeExpression&gt;</span><br><span class="line"></span><br><span class="line">&lt;LogicalExpression&gt; = &lt;AdditiveExpression&gt; | </span><br><span class="line">    &lt;LogicalExpression&gt; "||" &lt;AdditiveExpression&gt; | </span><br><span class="line">    &lt;LogicalExpression&gt; "&amp;&amp;" &lt;AdditiveExpression&gt;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> rowSelection = &#123;</span><br><span class="line">	type: <span class="string">'checkbox'</span>, </span><br><span class="line">	selectionRowKeys: [...selectedRows, ...oldBindList],</span><br><span class="line">	onChange: <span class="keyword">this</span>.handleSelectRows, </span><br><span class="line">	<span class="comment">// 根据一定规则设置每一行的编辑状态, 比如默认选中的行</span></span><br><span class="line">	getCheckboxProps(record) &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			disabled: oldBindList.indexOf(record.id) !== <span class="number">-1</span>,</span><br><span class="line">		&#125;;</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><a href="https://github.com/AssemblyScript/assemblyscript/blob/master/src/parser.ts" target="_blank" rel="noopener">https://github.com/AssemblyScript/assemblyscript/blob/master/src/parser.ts</a></p>
-<h2 id="现代语言的特例"><a href="#现代语言的特例" class="headerlink" title="现代语言的特例"></a>现代语言的特例</h2><ul>
-<li>C++中, *可能表示乘号或者指针, 具体是哪个, 取决于星号前面的标识符是否被声明为类型</li>
-<li>VB中, &lt; 可能是小于号, 也可能是XML直接量的开始, 取决于当前位置是否可以接受XML直接量</li>
-<li>Python中, 行首的tab符和空格会根据上一行的首行空白以一定规则被处理成虚拟终结符indent或者dedent</li>
-<li>JavaScript中, / 可能是除号, 也可能是正则表达式的开头, 处理方式类似于VB, 字符串模板中也需要特殊处理}, 还有自动插入分好规则</li>
-</ul>
-<h2 id="图灵完备性"><a href="#图灵完备性" class="headerlink" title="图灵完备性"></a>图灵完备性</h2><ul>
-<li>命令式 - 图灵机<ul>
-<li>goto</li>
-<li>if和while</li>
-</ul>
-</li>
-<li>声明式 – lambda<ul>
-<li>递归</li>
-</ul>
-</li>
-</ul>
-<h2 id="动态与静态"><a href="#动态与静态" class="headerlink" title="动态与静态"></a>动态与静态</h2><ul>
-<li><p>动态</p>
+<h3 id="代码解读"><a href="#代码解读" class="headerlink" title="代码解读"></a>代码解读</h3><p><code>rowSelection</code>是一个对象存在的，里面这些是我需要的</p>
 <ul>
-<li>在用户的设备/在线服务器上</li>
-<li>产品实际运行时</li>
-<li>runtime</li>
-</ul>
+<li><p><code>type</code></p>
+<p>可选 <code>checkbox</code>  或者 <code>radio</code>， 就是样式</p>
 </li>
-<li><p>静态</p>
-<ul>
-<li>在程序员的设备上</li>
-<li>产品开发时</li>
-<li>compiletime (编译时)</li>
-</ul>
+<li><p><code>selectionRowKeys</code> </p>
+<p>界面所显示的选中行， 其中<code>selectedRows</code>是用来更新点击选中的行， <code>oldBindList</code>是服务器返回已经绑定的数据id数组</p>
+<p>显示的时候把他们进行拼接</p>
 </li>
-</ul>
-<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><ul>
-<li>动态类型系统与静态类型系统</li>
-<li>强类型与弱类型<ul>
-<li>String + Number</li>
-<li>String == Boolean</li>
-</ul>
+<li><p><code>onChange</code></p>
+<p>设置每一行的点击事件</p>
 </li>
-<li>复合类型<ul>
-<li>结构体</li>
-<li>函数签名</li>
-</ul>
-</li>
-<li>子类型<ul>
-<li>逆变/协变</li>
-</ul>
+<li><p><code>getCheckboxProps</code> 方法</p>
+<p>用于自定义设置哪些行是默认不可编辑的， 当然是服务器返回的已经绑定的数据</p>
 </li>
 </ul>
+<h2 id="实现每一行的点击方法"><a href="#实现每一行的点击方法" class="headerlink" title="实现每一行的点击方法"></a>实现每一行的点击方法</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">handleSelectRows = <span class="function">(<span class="params">selectedRowsKeys, selectedRows</span>) =&gt;</span> &#123;</span><br><span class="line">	<span class="keyword">const</span> oldBindList = <span class="keyword">this</span>.props; <span class="comment">// 获取默认绑定数据</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> newSelectedRowsKey = selectedRowsKeys.filter(</span><br><span class="line">		(item) =&gt; oldBindList.indexOf(item) === <span class="number">-1</span></span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">const</span> newSelectedRows = selectedRows.filter(</span><br><span class="line">		(item) =&gt; oldBindList.indexOf(item.id) === <span class="number">-1</span></span><br><span class="line">	);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">this</span>.setState(&#123;</span><br><span class="line">		<span class="comment">// 更新数据</span></span><br><span class="line">		selectedRowsKeys: newSelectedRowsKey,</span><br><span class="line">		selectedRows: newSelectedRows,</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="代码解读-1"><a href="#代码解读-1" class="headerlink" title="代码解读"></a>代码解读</h3><ul>
+<li><p><code>selectedRowsKeys</code></p>
+<p>当前全部选中的行的简单数据， 我这里是个<code>id</code>数组， 会随着点击变化</p>
+</li>
+<li><p><code>selectedRows</code></p>
+<p>当前全部选中行的详细数据， 也是随着点击而变化</p>
+</li>
+<li><p><code>newSelectedRowsKey</code></p>
+<p>剔除服务器返回已经绑定的<code>id</code>数组， 也就是纯新增的</p>
+</li>
+<li><p><code>newSelectedRows</code></p>
+<p>剔除服务器返回已绑定的完整数据数组， 也是纯新增数据</p>
+</li>
+</ul>
+<h2 id="使用自定义rowSelection"><a href="#使用自定义rowSelection" class="headerlink" title="使用自定义rowSelection"></a>使用自定义<code>rowSelection</code></h2><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><p>就是在<code>table</code>属性里添加这个属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">rowSelection=&#123;&#123;</span><br><span class="line">		...rowSelection,</span><br><span class="line">	&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="代码解读-2"><a href="#代码解读-2" class="headerlink" title="代码解读"></a>代码解读</h3><p>就是把自定义对象解构使用</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这样就实现了设置默认选中行且不可取消的界面效果， 并且提交新增数据时候也是剔除原有已绑定的纯新增数据</p>
 
     </div>
 
@@ -369,7 +309,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/tools/" rel="tag"># tools</a>
           </div>
 
         
@@ -378,13 +318,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/zhuang-tai-ji/" rel="prev" title="状态机笔记">
-      <i class="fa fa-chevron-left"></i> 状态机笔记
+    <a href="/%E4%BF%AE%E6%94%B9%E5%B7%B2%E6%8F%90%E4%BA%A4git%E7%94%A8%E6%88%B7%E5%90%8D/" rel="prev" title="修改已提交git用户名">
+      <i class="fa fa-chevron-left"></i> 修改已提交git用户名
     </a></div>
-      <div class="post-nav-item">
-    <a href="/bian-cheng-yu-yan-tong-shi/" rel="next" title="编程语言通识">
-      编程语言通识 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -444,7 +381,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#语言按语法分类"><span class="nav-number">1.</span> <span class="nav-text">语言按语法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#巴科斯范式"><span class="nav-number">2.</span> <span class="nav-text">巴科斯范式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#介绍"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#产生式-BNF-巴科斯范式"><span class="nav-number">2.2.</span> <span class="nav-text">产生式(BNF - 巴科斯范式)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现代语言的特例"><span class="nav-number">3.</span> <span class="nav-text">现代语言的特例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图灵完备性"><span class="nav-number">4.</span> <span class="nav-text">图灵完备性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态与静态"><span class="nav-number">5.</span> <span class="nav-text">动态与静态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型系统"><span class="nav-number">6.</span> <span class="nav-text">类型系统</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义rowSelection属性"><span class="nav-number">1.</span> <span class="nav-text">自定义rowSelection属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码"><span class="nav-number">1.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码解读"><span class="nav-number">1.2.</span> <span class="nav-text">代码解读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现每一行的点击方法"><span class="nav-number">2.</span> <span class="nav-text">实现每一行的点击方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-1"><span class="nav-number">2.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码解读-1"><span class="nav-number">2.2.</span> <span class="nav-text">代码解读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用自定义rowSelection"><span class="nav-number">3.</span> <span class="nav-text">使用自定义rowSelection</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码-2"><span class="nav-number">3.1.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码解读-2"><span class="nav-number">3.2.</span> <span class="nav-text">代码解读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
